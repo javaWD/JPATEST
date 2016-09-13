@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.com.esrichina.servermonitor.dao.HostsDao;
+import cn.com.esrichina.servermonitor.domain.Host;
+
 public class SimpleSpringJpaDemo {
 
 	public static void main(String[] args) {
@@ -18,10 +21,16 @@ public class SimpleSpringJpaDemo {
 //		p.setProductTitle("JPAUnit0913222");
 //		productDao.save(p);
 		
-		ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
+//		ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
+//		//Product p = new Product();
+//		//p.setProductTitle("JPAUnit0913222");
+//		List<Product> lp= productDao.searchAll();
+//		System.out.println(lp.size());
+		
+		HostsDao hostsDao = ctx.getBean("hostsDao", HostsDao.class);
 		//Product p = new Product();
 		//p.setProductTitle("JPAUnit0913222");
-		List<Product> lp= productDao.searchAll();
+		List<Host> lp= hostsDao.searchAll();
 		System.out.println(lp.size());
 		
 
