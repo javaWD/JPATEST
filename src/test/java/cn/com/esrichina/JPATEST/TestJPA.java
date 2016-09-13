@@ -1,38 +1,59 @@
 package cn.com.esrichina.JPATEST;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.com.esrichina.product.Product;
+import cn.com.esrichina.product.ProductDao;
+import cn.com.esrichina.product.ProductManager;
+import cn.com.esrichina.servermonitor.dao.HostsDao;
+import cn.com.esrichina.servermonitor.domain.Host;
 import junit.framework.TestCase;
 
 public class TestJPA extends TestCase{
 //	@PersistenceContext(unitName="JPATESs")
 //	private EntityManager entityManager;
-
+	private ClassPathXmlApplicationContext ctx;
 
 	@Before
 	public void setUp(){
+		ctx = new ClassPathXmlApplicationContext("classpath:/cn/com/esrichina/product/spring-jpa.xml");
+	}
+	
+	@After
+	public void after(){
 		
 	}
 	
 	@Test
 	public void testJPA(){
-		
-		 EntityManagerFactory factory=Persistence.createEntityManagerFactory("JPATEST");
-		  EntityManager em=factory.createEntityManager();
-		//EntityManager em=entityManager;
-		  em.getTransaction().begin();
-		  em.persist(new Person("ceshi333")); //进行持久化操作
-		  em.getTransaction().commit();
-		  em.close();
-		  factory.close();
-		System.out.println("mytest");
-		
+		ProductManager productDao = ctx.getBean("productManager", ProductManager.class);
+		Product p = new Product();
+		p.setProductTitle("JPAUnit0913222");
+		productDao.save(p);
+	}
+	
+	@Test
+	public void testPersonNameQuery(){
+		ProductDao productDao = ctx.getBean("productDao", ProductDao.class);
+		List<Product> lp= productDao.searchAll();
+		System.out.println(lp.size());
+	}
+	
+	@Test
+	public void testHostNameQuery(){
+		HostsDao hostsDao = ctx.getBean("hostsDao", HostsDao.class);
+		List<Host> lp= hostsDao.searchAll();
+		System.out.println(lp.size());
 	}
 	
 }
