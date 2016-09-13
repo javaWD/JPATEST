@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 切记，该文件一定要放在/WEB-INF/classes/META-INF这里才能生效 -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="2.0">
+
+	<persistence-unit name="SimplePU" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>cn.com.esrichina.product.Product</class>
+
+		<properties>
+
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+
+			<property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/test" />
+
+			<property name="hibernate.connection.username" value="root" />
+
+			<property name="hibernate.connection.password" value="123456" />
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+
+			<property name="hibernate.show_sql" value="true" />
+
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>
+</persistence>
