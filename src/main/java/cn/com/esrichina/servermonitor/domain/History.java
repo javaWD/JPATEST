@@ -14,7 +14,11 @@ import java.math.BigInteger;
 @Entity
 @Table(name="history")
 @IdClass(HistoryId.class)
-@NamedQuery(name="History.findAll", query="SELECT h FROM History h")
+@NamedQueries({
+@NamedQuery(name="History.findAll", query="SELECT h FROM History h"),
+@NamedQuery(name="History.conditionQuery",query="SELECT h FROM History h WHERE h.itemid=:id and h.clock>=:queryStart and  h.clock<=:queryEnd"),
+@NamedQuery(name="History.findLastestTime",query="SELECT h FROM History h WHERE h.itemid=:id ORDER BY h.clock DESC")
+})
 public class History implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -60,6 +64,11 @@ public class History implements Serializable {
 
 	public void setValue(double value) {
 		this.value = value;
+	}
+	
+	@Override
+	public String toString() {
+		return "itemid:"+itemid+";clock:"+clock+";value:"+value;
 	}
 
 }
